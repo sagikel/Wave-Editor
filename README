@@ -1,0 +1,137 @@
+skelner,yuval
+Sagi Kelner and Yuval Gonen
+
+We discussed the exercise with: None.
+
+==================
+=  Description:  =
+==================
+
+In this exercise, we will write a program for editing wav audio files.
+
+==========================
+=  Auxiliary functions:  =
+==========================
+
+Code-writing order:
+At the beginning of the code, you can find import modules, magic numbers,
+and built-in messages. Then, you can see the main functions that run the
+program.
+In the next step you can see all the auxiliary functions in order to perform
+all the activities of the program:
+First functions that are helpful for editing, then composing and eventually
+consolidating files.
+
+And now, an explanation of each part separately:
+
+
+# === THE PROGRAM === #
+
+*main_process*
+The program runs on a loop, found in the main function "main_process".
+The value in the loop changes according to what the "start_menu" function
+returns to it. This function returns a true or false value and thus without
+pressing "4" (exit) - the loop will continue, because it will receive true
+values.
+
+
+*start_menu*
+This function returns true to each typo. In addition to "Exit", it returns the
+true by sending the changed or new audio data to the "transition_menu", there
+after saving the new wav it return a true value.
+In each option in start_menu function, the user must first enter a name\s of
+file/s, which are done with a loop until they are correctly typed or found to
+exist. The function then sends the information from the files to a function
+corresponding to the user's desire, and returns the new information that has
+been processed with "transition_menu".
+
+
+*edit_audio_menu*
+This function receives information about the audio and returns the information
+after a certain processing according to the user's desire.
+The return is done within the "transition_menu" function.
+
+
+*transition_menu*
+A function that accepts audio data and returns a true value after a successful
+save operation has been done - causes the main loop to run again.
+Another option is if the user wants to edit the new audio, the function will
+return it to "edit_audio_menu" - so an internal loop is created in which these
+two functions return each other until the user wants to save what he received.
+
+
+# === AUXILIARY FUNCTIONS FOR *EDIT* === #
+
+Each function here works only on the audio list.
+
+*load_file_and_validate*
+The function associated with "start_menu" only.
+It is used to load the information of the file.
+
+
+*volume_change*
+Amplification and volume reduction are similar functions and therefore an
+auxiliary function was created, which performs the change the audio according
+to the value entered in it. For the purpose of amplification - it will get 1.2
+and for reduction - 1 / 1.2.
+
+
+# === AUXILIARY FUNCTIONS FOR *COMPOSING* === #
+
+*file_to_compose_list*
+The function associated with "start_menu" only.
+It is used to load the compose list from the text file.
+
+
+*composed_audio_list*
+The main function. Receives a compose list and returns an audio list. Uses all
+functions explained below. It takes each pair from the list - a letter (note)
+and a number - and enters them to "audio_list_for_note_and_number" function and
+connects all the results to one list.
+
+
+*audio_list_for_note_and_number*
+This function uses all the following functions to compose a list for a letter
+and a number.
+For each index in number of samples, it produces value using the formula.
+For the purpose of the formula, a note is transferred to the number.
+The value is entered twice to the right and left speakers, thus building a
+list for all the samples.
+
+
+*formula*
+Generates value by inserting a converted letter into a number and some index.
+If the number is 0, the function automatically returns 0 for not divide by 0
+in the formula process.
+
+
+*number_to_samples_amount*
+To get the number of samples per second, we will use this function.
+
+
+*note_to_frequency*
+With a pre-prepared dictionary, a letter is converted to a number.
+
+
+# === AUXILIARY FUNCTIONS FOR *UNION* === #
+
+*load_files_and_validate*
+The function associated with "start_menu" only.
+It is used to load the audio data from the files.
+
+*unify_audio*
+We compare the frame rates of both files, and activate different functions,
+depending on the equality or inequality.
+
+if both files share the same frame rate, we use *unify_audio_lst*. In the are
+if the same length we use *same_len_avg*, where we compute their average.
+Otherwise, we use *diff_len_avg*, in which we compute the average of the
+begging of both list (same length), and than add the remaining of the longer
+list.
+
+If both audio list have a different frame rate, we use *different_frame_rate*.
+We use five different functions to reduce the longer list based on the
+instructions. We took into consideration that dividing the list might not be
+an integer.
+When a reduced list is created, we use *unify_audio_lst* with the reduced list
+and the shorter list (out of the audio lists).
