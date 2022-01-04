@@ -1,7 +1,6 @@
 #############################################################
 # FILE : wave_editor.py
-# WRITER : Sagi Kelner , skelner , Yuval Gonen , yuval
-# EXERCISE : intro2cs ex6 2018-2019
+# WRITER : sagikel , yuval
 # DESCRIPTION : Program for editing wav audio files.
 #############################################################
 
